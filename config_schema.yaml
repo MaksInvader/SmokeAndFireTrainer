@@ -1,0 +1,36 @@
+# Minimal configuration schema for ViT Trainer (based on SRS)
+# Edit values as needed; the notebook reads the `config` dict produced by the UI.
+
+model:
+  backbone: vit_base_patch16_224   # timm model name
+  patch_size: 16
+  pretrained: true
+  depth: 12
+  num_heads: 12
+  embed_dim: 768
+
+train:
+  batch_size: 8
+  epochs: 50
+  lr: 1e-4
+  accumulate_grad_batches: 1
+
+augmentations:
+  mosaic: false
+  mixup: false
+  randaugment: false
+
+detection:
+  head: yolov1     # options: yolov1, anchor_free, two_stage
+  loss: giou       # options: l1, giou, diou, ciou
+
+misc:
+  seed: 42
+  device: auto     # 'cuda' | 'cpu' | 'auto'
+  save_dir: ./checkpoints
+
+# Notes:
+# - Use `device: auto` to let the notebook choose the available device.
+# - This file is a simple template; the notebook's UI produces a `config` dict
+#   which follows the same structure. You can load/modify this YAML and feed
+#   it to the notebook for reproducible experiments.
